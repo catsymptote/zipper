@@ -17,87 +17,16 @@ from lib import zipper
 
 
 
-
-##############
-## Vaiables ##
-##############
-
-## Directories
-output_dir  = "D:\\Projects\\Python\\zipper\\output"
-root_dir    = "D:\\Projects\\Python\\zipper\\testfolder"
-file_name   = "D:\\Projects\\Python\\zipper\\testfolder\\testfile.txt"
-output_name = "D:\\Projects\\Python\\zipper\\output\\testzip.zip"
-
-## Password / encryption
-password_encryption = False
-password    = "1234"
-
-
-
 ###################
 ## GUI functions ##
 ###################
 
-"""
-def get_directory():
-    current_directory = filedialog.askdirectory()   # Set the file directory
-    if (current_directory != ""):
-        print (current_directory)
-        sys.stdout.flush()
-
-
-def change_dir_in_1():
-    pass
-    global dir_in_1
-    global dir_in_1_var
-    dir_in_1_var = filedialog.askdirectory()    # Set the file directory
-    if (dir_in_1_var != ""):
-        dir_in_1.set(dir_in_1_var)
-        #file_duplication_finder.set_main_dir_1(dir_in_1_var)
-        print("First input directory:\t" + str(dir_in_1_var))
-        sys.stdout.flush()
-
-
-def change_dir_in_2():
-    pass
-    global dir_in_2
-    global dir_in_2_var
-    dir_in_2_var = filedialog.askdirectory()    # Set the file directory
-    if (dir_in_2_var != ""):
-        dir_in_2.set(dir_in_2_var)
-        #file_duplication_finder.set_main_dir_2(dir_in_2_var)
-        print("Second input directory:\t" + str(dir_in_2_var))
-        sys.stdout.flush()
-
-
-def change_dir_out():
-    pass
-    global dir_out
-    global dir_out_var
-    dir_out_var = filedialog.askdirectory() # Set the file directory
-    if (dir_out_var != ""):
-        dir_out.set(dir_out_var)
-        #file_duplication_finder.set_main_dir_out(dir_out_var)
-        print("Output directory:\t" + str(dir_out_var))
-        sys.stdout.flush()
-"""
-
-"""
 def zipSingleFile():
-    zipper.zipFile("testfile.txt", "testzap.zip", False, "secret")
+    zipper.zipFile("testfolder\\testfile.txt", "testfilezip.zip", password_encryption.get(), entry_password.get())
 
 
 def zipFolder():
-    zipper.zipFolder("testfolder\\", "testzap.zip", False, "secret")
-"""
-
-
-def zipSingleFile():
-    zipper.zipFile("testfolder\\testfile.txt", "testfilezip.zip", password_encryption, password)
-
-
-def zipFolder():
-    zipper.zipFolder("testfolder\\", "testfolderzip.zip", password_encryption, password)
+    zipper.zipFolder("testfolder\\", "testfolderzip.zip", password_encryption.get(), entry_password.get())
 
 
 def set_dir():
@@ -139,6 +68,26 @@ def set_filename():
 # Start ----------
 root_window = Tk()  # Window constructor / blank window
 # Start ----------
+
+
+##############
+## Vaiables ##
+##############
+
+## Directories
+output_dir = StringVar()
+output_dir.set("D:\\Projects\\Python\\zipper\\output")
+root_dir    = StringVar()
+root_dir.set("D:\\Projects\\Python\\zipper\\testfolder")
+file_name   = StringVar()
+file_name.set("D:\\Projects\\Python\\zipper\\testfolder\\testfile.txt")
+output_name = StringVar()
+output_name.set("D:\\Projects\\Python\\zipper\\output\\testzip.zip")
+
+## Password / encryption
+password_encryption = BooleanVar()
+#password_encryption = IntVar()
+password = StringVar()
 
 
 ## Run buttons
@@ -187,20 +136,33 @@ button_browse_file.grid(columnspan=1, row=3, column=0)
 checkbutton_password = Checkbutton(
     root_window,
     text="Encrypted",
+    state=ACTIVE,
+    #offvalue=False,
+    #onvalue=True,
+    #offvalue=0,
+    #onvalue=0, # Makes it marked (true)
     variable=password_encryption
 )
 
-checkbutton_password.grid(columnspan=1, row=0, column=2)
+checkbutton_password.grid(columnspan=1, row=3, column=0)
+
+
+## Entry
+entry_password = Entry(
+    root_window
+)
+
+entry_password.grid(columnspan = 2, row=3, column=1)
+
 
 ## Labels
-"""
+label_out = Label(root_window, textvariable=output_dir)
+label_in = Label(root_window, textvariable=root_dir)
 
-label_out = Label(root_window, textvariable=dir_out)
+label_out.grid(columnspan=3, row=1, column=2, sticky=W)
+label_in.grid(columnspan=3, row=2, column=2, sticky=W)
 
-label_in_1.grid(columnspan=3, row=1, column=1, sticky=W)
-label_in_2.grid(columnspan=3, row=2, column=1, sticky=W)
-label_out.grid(columnspan=3, row=3, column=1, sticky=W)
-"""
+
 
 
 # Stop ---------------
