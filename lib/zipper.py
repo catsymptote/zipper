@@ -2,7 +2,7 @@ import sys
 import chilkat
 
 
-def zipFile(s_filename, s_zipname, b_passwordProtected, s_password=" "):
+def zip_file(s_filename, s_zipname, b_passwordProtected, s_password=" ", i_compression_level=0):
     zip = chilkat.CkZip()
 
     #  Any string unlocks the component for the 1st 30-days.
@@ -15,6 +15,9 @@ def zipFile(s_filename, s_zipname, b_passwordProtected, s_password=" "):
     if (success != True):
         print(zip.lastErrorText())
         sys.exit()
+
+    if(i_compression_level <= 0 and i_compression_level <= 9):  # min<x<max
+        zip.SetCompressionLevel(i_compression_level)
 
     zip.SetPassword(s_password)
     zip.put_PasswordProtect(b_passwordProtected)
@@ -28,11 +31,11 @@ def zipFile(s_filename, s_zipname, b_passwordProtected, s_password=" "):
         print(zip.lastErrorText())
         sys.exit()
 
-    print("Zip Created!")
+    print("Zip Created: " + s_zipname)
 
 
 
-def zipFolder(s_dir, s_zipname, b_passwordProtected, s_password=" "):
+def zip_folder(s_dir, s_zipname, b_passwordProtected, s_password=" ", i_compression_level=0):
     zip = chilkat.CkZip()
 
     #  Any string unlocks the component for the 1st 30-days.
@@ -46,6 +49,9 @@ def zipFolder(s_dir, s_zipname, b_passwordProtected, s_password=" "):
         print(zip.lastErrorText())
         sys.exit()
     
+    if(i_compression_level <= 0 and i_compression_level <= 9):  # min<x<max
+        zip.SetCompressionLevel(i_compression_level)
+
     zip.SetPassword(s_password)
     zip.put_PasswordProtect(b_passwordProtected)
 
@@ -67,9 +73,7 @@ def zipFolder(s_dir, s_zipname, b_passwordProtected, s_password=" "):
         print(zip.lastErrorText())
         sys.exit()
 
-    print("Zip Created!")
-
-    print("Zip Created!")
+    print("Zip Created: " + s_zipname)
 
 
 
