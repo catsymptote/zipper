@@ -87,7 +87,7 @@ def delete_folders(dir_list):
 
 
 def delete_folder(dir):
-    print("rm dir:\t" + dir)
+    print("rm dir:\t\t" + os.path.basename(dir) + "/\n")
     shutil.rmtree(dir)
 
 
