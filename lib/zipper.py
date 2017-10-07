@@ -33,7 +33,7 @@ def zip_file(s_filename, s_zipname, b_passwordProtected, s_password=" ", i_compr
         sys.exit()
 
     print("Zip Created:\t" + os.path.basename(s_zipname))
-
+    return success  # True if zipped
 
 
 def zip_folder(s_dir, s_zipname, b_passwordProtected, s_password=" ", i_compression_level=0):
@@ -75,7 +75,7 @@ def zip_folder(s_dir, s_zipname, b_passwordProtected, s_password=" ", i_compress
         sys.exit()
 
     print("Zip Created:\t" + os.path.basename(s_zipname))
-
+    return success  # True if zipped
 
 
 

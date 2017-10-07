@@ -67,19 +67,25 @@ def zip_all_folders():
     print ("Compression:\t" + str(compr))
 
     # Zip each of the folders.
-    print("------------------------------")
     for i in range(len(dir_list)):
         path_input = os.path.join(root_dir.get(), dir_list[i])
         path_zip = os.path.join(root_dir.get(), os.path.basename(dir_list[i] + ".zip"))
         #print("in file: " + path_input)
         #print("out path: " + path_zip)
-        zipper.zip_folder(
-            path_input,
-            path_zip,
-            password_encryption.get(),
-            entry_password.get(),
-            compr # Run a test first
-        )
+        if( # Zips and if successful:
+            zipper.zip_folder(
+                path_input,
+                path_zip,
+                password_encryption.get(),
+                entry_password.get(),
+                compr # Run a test first
+            )
+        ):
+            if(delete_after.get()): # If delete files/folders
+                file_manager.delete_folder(path_input)
+    print("------------------------------")
+    
+
     print("------------------------------")
     print("All folders zipped")
 
@@ -143,7 +149,7 @@ output_name     = StringVar()
 s_output_name   = "D:\\Projects\\Python\\zipper\\output\\testzip.zip"
 output_name.set(s_output_dir)
 
-## Label variables
+## Compression
 lbl_compression_lvl = StringVar()
 lbl_compression_lvl.set("Compress (0-9)")
 
@@ -153,6 +159,11 @@ lbl_compression_lvl.set("Compress (0-9)")
 ## Password / encryption
 password_encryption = BooleanVar()
 password    = StringVar()
+
+## Delete file/folder after zipped
+delete_after = BooleanVar()
+
+
 
 
 ## Run buttons
@@ -220,7 +231,15 @@ checkbutton_password = Checkbutton(
     variable=password_encryption
 )
 
-checkbutton_password.grid(columnspan=1, row=4, column=0)
+checkbutton_delete_after = Checkbutton(
+    root_window,
+    text="Delete",
+    state=ACTIVE,
+    variable=delete_after
+)
+
+checkbutton_password.grid(columnspan=1, row=4, column=0, sticky=W)
+checkbutton_delete_after.grid(columnspan=1, row=4, column=2, sticky=W)
 
 
 ## Entry

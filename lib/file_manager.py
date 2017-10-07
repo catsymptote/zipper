@@ -9,6 +9,7 @@ import os
 import os.path
 from os import listdir
 import sys
+import shutil
 from shutil import copyfile
 
 
@@ -75,6 +76,20 @@ def copy_file(old_file, new_file):
         # Same, but add a (number) before the file extension?
         # (Actually, prob not because full URLs)
         #print ("File already exists")
+
+
+#def delete_files_and_folders():
+
+
+def delete_folders(dir_list):
+    for i in range(len(dir_list)):
+        delete_folder(dir_list[i])
+
+
+def delete_folder(dir):
+    print("rm dir:\t" + dir)
+    shutil.rmtree(dir)
+
 
 
 
