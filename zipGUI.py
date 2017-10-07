@@ -44,7 +44,30 @@ def zip_folder():
 
 
 def zip_all_folders():
+    # Get the list of folder in main directory.
+    print("Directory:\t" + root_dir.get())
     dir_list = file_manager.get_all_root_folder_dirs(root_dir.get())
+    #print("compression: " + entry_compression_level.get())
+    #print("compression: " + str(int(entry_compression_level.get())))
+    #print("compression: " + str(10 + int(entry_compression_level.get())))
+
+    # Compression level.
+    try:
+        compr_tmp = int(entry_compression_level.get())
+        if(compr_tmp >= 0 and compr_tmp <= 9):
+            compr = int(entry_compression_level.get())
+        elif(compr_tmp > 9):
+            compr = 9
+        elif(compr_tmp < 0):
+            compr = 0
+        else:
+            print("Dafuq, mate. Compression level should be a valid number :P")
+    except ValueError:
+        compr = 0
+    print ("Compression:\t" + str(compr))
+
+    # Zip each of the folders.
+    print("------------------------------")
     for i in range(len(dir_list)):
         path_input = os.path.join(root_dir.get(), dir_list[i])
         path_zip = os.path.join(root_dir.get(), os.path.basename(dir_list[i] + ".zip"))
@@ -55,8 +78,9 @@ def zip_all_folders():
             path_zip,
             password_encryption.get(),
             entry_password.get(),
-            0
+            compr # Run a test first
         )
+    print("------------------------------")
     print("All folders zipped")
 
 
@@ -116,6 +140,10 @@ file_name       = StringVar()
 file_name.set("D:\\Projects\\Python\\zipper\\testfolder\\testfile.txt")
 output_name     = StringVar()
 output_name.set("D:\\Projects\\Python\\zipper\\output\\testzip.zip")
+
+## Label variables
+compression_lvl = StringVar()
+compression_lvl.set("Compression level")
 
 ## Password / encryption
 password_encryption = BooleanVar()
@@ -192,15 +220,34 @@ entry_password = Entry(
     root_window
 )
 
+entry_compression_level = Entry(
+    root_window,
+    text="Compression (0-9)"
+)
+
 entry_password.grid(columnspan = 2, row=3, column=1)
+entry_compression_level.grid(columnspan = 1, row=4, column=1)
 
 
 ## Labels
-label_out = Label(root_window, textvariable=output_dir)
-label_in = Label(root_window, textvariable=root_dir)
+label_out = Label(
+    root_window,
+    textvariable=output_dir
+)
+
+label_in = Label(
+    root_window,
+    textvariable=root_dir
+)
+
+label_compression_level = Label(
+    root_window,
+    textvariable=compression_lvl
+)
 
 label_out.grid(columnspan=3, row=1, column=2, sticky=W)
 label_in.grid(columnspan=3, row=2, column=2, sticky=W)
+label_compression_level.grid(columnspan=1, row=4, column=0, sticky=W)
 
 
 

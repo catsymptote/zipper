@@ -1,5 +1,6 @@
 import sys
 import chilkat
+import os.path
 
 
 def zip_file(s_filename, s_zipname, b_passwordProtected, s_password=" ", i_compression_level=0):
@@ -31,7 +32,7 @@ def zip_file(s_filename, s_zipname, b_passwordProtected, s_password=" ", i_compr
         print(zip.lastErrorText())
         sys.exit()
 
-    print("Zip Created: " + s_zipname)
+    print("Zip Created:\t" + os.path.basename(s_zipname))
 
 
 
@@ -73,7 +74,7 @@ def zip_folder(s_dir, s_zipname, b_passwordProtected, s_password=" ", i_compress
         print(zip.lastErrorText())
         sys.exit()
 
-    print("Zip Created: " + s_zipname)
+    print("Zip Created:\t" + os.path.basename(s_zipname))
 
 
 
