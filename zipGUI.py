@@ -125,25 +125,30 @@ root_window = Tk()  # Window constructor / blank window
 # Start ----------
 
 
-##############
-## Vaiables ##
-##############
-
+## Vaiables
 ## Directories
 output_dir      = StringVar()
 s_output_dir    = "D:\\Projects\\Python\\zipper\\output"
 output_dir.set(s_output_dir)
+
 root_dir        = StringVar()
 s_root_dir      = "D:\\Projects\\Python\\zipper\\testfolder" 
 root_dir.set(s_root_dir)
+
 file_name       = StringVar()
-file_name.set("D:\\Projects\\Python\\zipper\\testfolder\\testfile.txt")
+s_file_name     = "D:\\Projects\\Python\\zipper\\testfolder\\testfile.txt"
+file_name.set(s_file_name)
+
 output_name     = StringVar()
-output_name.set("D:\\Projects\\Python\\zipper\\output\\testzip.zip")
+s_output_name   = "D:\\Projects\\Python\\zipper\\output\\testzip.zip"
+output_name.set(s_output_dir)
 
 ## Label variables
-compression_lvl = StringVar()
-compression_lvl.set("Compression level")
+lbl_compression_lvl = StringVar()
+lbl_compression_lvl.set("Compress (0-9)")
+
+#lbl_password = StringVar()
+#lbl_password.set("Password")
 
 ## Password / encryption
 password_encryption = BooleanVar()
@@ -171,9 +176,12 @@ button_3 = Button(
 )
 
 
-button_1.grid(columnspan=1, row=0, column=0)
-button_2.grid(columnspan=1, row=0, column=1)
-button_3.grid(columnspan=1, row=0, column=2)
+button_1.grid(columnspan=1, row=0, column=0, sticky=W+E)
+button_2.grid(columnspan=1, row=0, column=1, sticky=W+E)
+button_3.grid(columnspan=1, row=0, column=2, sticky=W+E)
+#button_1.pack()
+#button_2.pack()
+#button_3.pack()
 
 
 ## Browse buttons
@@ -195,15 +203,15 @@ button_browse_file = Button(
     command=set_filename
 )
 
-button_browse_out.grid(columnspan=1, row=1, column=0)
-button_browse_in.grid(columnspan=1, row=2, column=0)
-button_browse_file.grid(columnspan=1, row=3, column=0)
+button_browse_out.grid(columnspan=1, row=1, column=0, sticky=W+E)
+button_browse_in.grid(columnspan=1, row=2, column=0, sticky=W+E)
+button_browse_file.grid(columnspan=1, row=3, column=0, sticky=W+E)
 
 
 ## Checkbuttons
 checkbutton_password = Checkbutton(
     root_window,
-    text="Encrypted",
+    text="Password",
     state=ACTIVE,
     #offvalue=False,
     #onvalue=True,
@@ -212,7 +220,7 @@ checkbutton_password = Checkbutton(
     variable=password_encryption
 )
 
-checkbutton_password.grid(columnspan=1, row=3, column=0)
+checkbutton_password.grid(columnspan=1, row=4, column=0)
 
 
 ## Entry
@@ -221,12 +229,15 @@ entry_password = Entry(
 )
 
 entry_compression_level = Entry(
-    root_window,
-    text="Compression (0-9)"
+    root_window
 )
 
-entry_password.grid(columnspan = 2, row=3, column=1)
-entry_compression_level.grid(columnspan = 1, row=4, column=1)
+entry_input_dir = Entry(
+    root_window
+)
+
+entry_password.grid(columnspan = 1, row=4, column=1)
+entry_compression_level.grid(columnspan = 1, row=5, column=1)
 
 
 ## Labels
@@ -240,16 +251,26 @@ label_in = Label(
     textvariable=root_dir
 )
 
-label_compression_level = Label(
+label_file = Label(
     root_window,
-    textvariable=compression_lvl
+    textvariable=file_name
 )
 
-label_out.grid(columnspan=3, row=1, column=2, sticky=W)
-label_in.grid(columnspan=3, row=2, column=2, sticky=W)
-label_compression_level.grid(columnspan=1, row=4, column=0, sticky=W)
+label_compression_level = Label(
+    root_window,
+    textvariable=lbl_compression_lvl
+)
 
+#label_password = Label(
+#    root_window,
+#    textvariable=lbl_password
+#)
+#label_password.grid(columnspan=1, row=5, column=0, sticky=W)
 
+label_out.grid(columnspan=3, row=1, column=1, sticky=W)
+label_in.grid(columnspan=3, row=2, column=1, sticky=W)
+label_file.grid(columnspan=3, row=3, column=1, sticky=W)
+label_compression_level.grid(columnspan=1, row=5, column=0, sticky=W)
 
 
 # Stop ---------------
