@@ -5,3 +5,5 @@
 *.zip
 output/
 testfolder/
+.idea/
+.vscode/
